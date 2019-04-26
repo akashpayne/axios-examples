@@ -123,6 +123,28 @@ axios.post(
 source.cancel('Operation canceled by the user.');
 ```
 
+# Other useful things
+
+```js
+// ValidateStatus
+axios.post('/validate', { ...payload }, {
+  validateStatus: (status) => status >= 200 && status < 400;
+});
+
+// Https agent
+// Ignore self signed ssl
+const internalAgent = new https.Agent({ rejectUnauthorized: false });
+
+axios
+  .post(
+    CSG_TOKEN_URL,
+    { ...payload },
+    {
+      httpsAgent: NODE_ENV !== 'production' && internalAgent
+    }
+  )
+```
+
 ---
 
 # The end
