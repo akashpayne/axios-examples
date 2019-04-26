@@ -63,13 +63,13 @@ customerService.defaults.headers.common ===
   searchService.defaults.headers.common;
 ```
 
-# Interceptors
+# Interceptors / Transformers
 
 ```js
 // Auto fetch Bearer
 const instance = axios.create({ baseURL: 'https://some-domain.com/api/' });
 
-// Request
+// Intercept Request
 const autoAuthorize = ({ apiKey }) => config => {
   const existing = _get(instance, 'defaults.headers.authorization');
 
@@ -85,12 +85,10 @@ const autoAuthorize = ({ apiKey }) => config => {
   });
 };
 
-// Response
-const soapToJson = (response) => xmlToJson(res.data, { explicitArray: false })
-
 instance.interceptors.request.use(autoAuthorize({ apiKey: 'apple'}));
-instance.interceptors.response.use(soapToJson);
 
+// Transform response
+instance.defaults.transformResponse = (data) => xmlToJson(data, { explicitArray: false })
 ```
 
 # Cancellation
