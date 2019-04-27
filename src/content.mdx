@@ -77,7 +77,7 @@ const autoAuthorize = ({ apiKey }) => config => {
   if (existing) return Promise.resolve(config);
 
   // Else fetch a new token
-  return loginService.post('/get-token?key=$\{apiKey}').then({ data } => {
+  return loginService.post('/get-token?key=' + apiKey).then({ data } => {
     instance.defaults.headers.authorization = data.bearerToken;
     // Replay the request with the added token
     _set(config, 'headers.authorization', data.bearerToken);
