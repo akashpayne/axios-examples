@@ -59,8 +59,8 @@ const customerService = axios.create({
 });
 
 // Should inherit in v0.19
-customerService.defaults.headers.common ===
-  searchService.defaults.headers.common;
+customerService.defaults.headers.common['Authorization'] ===
+  searchService.defaults.headers.common['Authorization'];
 ```
 
 # Interceptors / Transformers
